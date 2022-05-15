@@ -5,26 +5,31 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 @Component
-public class AppRunner implements CommandLineRunner {
+public class AppRunner<E> implements CommandLineRunner {
 
 	private static final Logger logger = LoggerFactory.getLogger(AppRunner.class);
 
-	private final BookRepository bookRepository;
+	private final BookRepository<String, Book<String, E>> bookRepository;
 
-	public AppRunner(BookRepository bookRepository) {
+	public AppRunner(BookRepository<String, Book<String, E>> bookRepository) {
 		this.bookRepository = bookRepository;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.info(".... Fetching books");
-		logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-		logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
-		logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-		logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
-		logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-		logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+		for (String s : Collections.unmodifiableList(Arrays.asList(".... Fetching books",
+				String.format("isbn-1234 -->%s", bookRepository.getByIsbn("isbn-1234")),
+				String.format("isbn-4567 -->%s", bookRepository.getByIsbn("isbn-4567")),
+				String.format("isbn-1234 -->%s", bookRepository.getByIsbn("isbn-1234")),
+				String.format("isbn-4567 -->%s", bookRepository.getByIsbn("isbn-4567")),
+				String.format("isbn-1234 -->%s", bookRepository.getByIsbn("isbn-1234")),
+				String.format("isbn-1234 -->%s", bookRepository.getByIsbn("isbn-1234"))))) {
+			logger.info(s);
+		}
 	}
 
 }

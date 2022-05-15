@@ -1,7 +1,7 @@
 package com.example.caching;
 
-public interface BookRepository {
+public interface BookRepository<K, E> {
 
-	Book getByIsbn(String isbn);
+	E getByIsbn(K isbn);
 
 }

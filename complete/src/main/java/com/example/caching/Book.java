@@ -1,34 +1,38 @@
 package com.example.caching;
 
-public class Book {
+public class Book<K, T> {
+	private T bookType;
+	private K isbn;
+	private K title;
 
-	private String isbn;
-	private String title;
-
-	public Book(String isbn, String title) {
+	public Book(K isbn, K title) {
 		this.isbn = isbn;
 		this.title = title;
 	}
 
-	public String getIsbn() {
+	public K getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(String isbn) {
+	public void setIsbn(K isbn) {
 		this.isbn = isbn;
 	}
 
-	public String getTitle() {
+	public K getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(K title) {
 		this.title = title;
 	}
 
 	@Override
 	public String toString() {
-		return "Book{" + "isbn='" + isbn + '\'' + ", title='" + title + '\'' + '}';
+		return String.format("Book{isbn='%s', title='%s'}", isbn, title);
+	}
+
+	public T getBookType(){
+		return bookType;
 	}
 
 }
